@@ -1,9 +1,9 @@
-<h2>Hello</h2> <br><br>
-You have got an email from : {{ $name }} <br><br>
-User details: <br><br>
-Name: {{ $name }} <br>
+<h2>Здравствуйте!</h2> <br><br>
+Через форму обратной связи были отправлены следующие данные:<br><br>
+<br><br>
+Имя: {{ $name }} <br>
 Email: {{ $email }} <br>
-Phone: {{ $phone }} <br>
-Subject: {{ $subject }} <br>
-Message: {{ $user_query }} <br><br>
-Thanks
+Телефон: {{ $phone }} <br>
+Тема: {{ $subject }} <br>
+Сообщение: {{ $user_query }} <br><br>
+Спасибо!!

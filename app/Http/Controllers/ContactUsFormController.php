@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contact;
-
+use Mail;
 class ContactUsFormController extends Controller {
     // Create Contact Form
     public function createForm(Request $request) {
@@ -20,7 +20,18 @@ class ContactUsFormController extends Controller {
         ]);
         //  Store data in database
         Contact::create($request->all());
-        //
-        return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
+        //  Send mail to user cc to admin
+        \Mail::send('mail', array(
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'subject' => $request->get('subject'),
+            'user_query' => $request->get('message'),
+        ), function($message) use ($request){
+            $message->from(config('mail.mailers.smtp.username'), 'Admin');
+            $message->to($request->email)->subject($request->get('subject'));
+            $message->cc(config('mail.mailers.smtp.username'))->subject($request->get('subject'));
+        });
+        return back()->with('success', 'Ваше сообщение отправлено!');
     }
 }
