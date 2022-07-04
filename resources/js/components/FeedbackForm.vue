@@ -75,7 +75,14 @@
                             <div class="error">
                             </div>
                         </div>
-                        <input type="submit" name="send" value="Отправить" class="btn btn-primary btn-block text-white">
+                        <v-btn
+                            block
+                            type="submit"
+                            :disabled="!valid"
+                            @click="onFormSubmit"
+                        >
+                            Отправить
+                        </v-btn>
 
                         <Notification
                             v-if="result"
