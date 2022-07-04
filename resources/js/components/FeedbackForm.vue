@@ -78,10 +78,10 @@
                         <v-btn
                             block
                             type="submit"
-                            :disabled="!valid"
+                            :disabled="!valid || isSending"
                             @click="onFormSubmit"
                         >
-                            Отправить
+                            {{ isSending ? 'Отправляется...' : 'Отправить' }}
                         </v-btn>
 
                         <Notification
@@ -108,6 +108,7 @@ export default {
     data() {
         return {
             valid: true,
+            isSending: false,
             result: false,
             resMsg: '',
             resType: '',
@@ -138,10 +139,14 @@ export default {
             ],
         }
     },
+    watch: {
+        isSending: nv => nv,
+    },
     methods: {
         onFormSubmit() {
 
             if (this.$refs.form.validate()) {
+                this.isSending = true;
                 let formData = new FormData();
 
                 formData.append('name', this.name);
@@ -171,9 +176,9 @@ export default {
                         }
                     })
                     .finally(() => {
+                        this.isSending = false;
                         setTimeout(() => this.result = false, 3000);
                     })
-
 
             }
         }
