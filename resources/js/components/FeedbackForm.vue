@@ -76,7 +76,12 @@
                             </div>
                         </div>
                         <input type="submit" name="send" value="Отправить" class="btn btn-primary btn-block text-white">
-                        <p v-if="result" class="text-center text-success font-weight-bolder mt-3">Отправлено успешно!</p>
+
+                        <Notification
+                            v-if="result"
+                            :res-msg="resMsg"
+                            :res-type="resType"
+                        />
                     </v-form>
                 </v-col>
             </v-row>
@@ -86,8 +91,10 @@
 
 <script>
 
+import Notification from "./Notification";
 export default {
     name: 'FeedbackForm',
+    components: {Notification},
     props: {
         msg: String
     },
@@ -95,6 +102,8 @@ export default {
         return {
             valid: true,
             result: false,
+            resMsg: '',
+            resType: '',
             name: '',
             nameRules: [
                 v => !!v || 'Имя обязательно',
@@ -139,13 +148,16 @@ export default {
                         "Access-Control-Allow-Origin": "*",
                     }
                 }).then((response) => {
-                    console.log(response.data);
+                    this.resMsg = 'Отправлено успешно!';
+                    this.resType = 'success';
                     this.result = true;
                     this.$refs.form.reset();
 
                 })
                     .catch((error) => {
                         if (error.response) {
+                            this.resMsg = 'Ошибка! Отправить не удалось';
+                            this.resType = 'danger';
                             console.log(error.response.data);
                             console.log(error.response.status);
                             console.log(error.response.headers);
