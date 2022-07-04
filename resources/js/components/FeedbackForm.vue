@@ -7,7 +7,6 @@
             <v-row>
                 <v-col cols="4" class="mx-auto">
                     <v-form method="post"
-                            @submit.prevent="onFormSubmit"
                             ref="form"
                             v-model="valid"
                             lazy-validation
@@ -75,7 +74,10 @@
                             <div class="error">
                             </div>
                         </div>
-                        <input type="submit" name="send" value="Отправить" class="btn btn-primary btn-block text-white">
+                        <button type="submit"
+                               class="btn btn-primary btn-block text-white"
+                               @click="onFormSubmit"
+                        >Отправить</button>
                     </v-form>
                 </v-col>
             </v-row>
