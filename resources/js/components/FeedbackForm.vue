@@ -76,6 +76,7 @@
                             </div>
                         </div>
                         <input type="submit" name="send" value="Отправить" class="btn btn-primary btn-block text-white">
+                        <p v-if="result" class="text-center text-success font-weight-bolder mt-3">Отправлено успешно!</p>
                     </v-form>
                 </v-col>
             </v-row>
@@ -93,6 +94,7 @@ export default {
     data() {
         return {
             valid: true,
+            result: false,
             name: '',
             nameRules: [
                 v => !!v || 'Имя обязательно',
@@ -138,7 +140,9 @@ export default {
                     }
                 }).then((response) => {
                     console.log(response.data);
+                    this.result = true;
                     this.$refs.form.reset();
+
                 })
                     .catch((error) => {
                         if (error.response) {
@@ -146,6 +150,9 @@ export default {
                             console.log(error.response.status);
                             console.log(error.response.headers);
                         }
+                    })
+                    .finally(() => {
+                        setTimeout(() => this.result = false, 3000);
                     })
 
 
