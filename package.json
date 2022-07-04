@@ -24,6 +24,7 @@
         "webpack-cli": "^4.10.0"
     },
     "dependencies": {
-        "autoprefixer": "10.4.5"
+        "autoprefixer": "10.4.5",
+        "vuetify": "^2.6.7"
     }
 }
