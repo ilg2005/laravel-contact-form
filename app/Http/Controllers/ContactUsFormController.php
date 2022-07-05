@@ -17,13 +17,13 @@ class ContactUsFormController extends Controller {
         //  Store data in database
         Contact::create($request->all());
         //  Send mail to user cc to admin
-        \Mail::send('mail', array(
+        \Mail::send('mail', [
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
             'subject' => $request->get('subject'),
             'user_query' => $request->get('message'),
-        ), function($message) use ($request){
+        ], function($message) use ($request){
             $message->from(config('mail.mailers.smtp.username'), 'Admin');
             $message->to($request->email)->subject($request->get('subject'));
             $message->cc(config('mail.mailers.smtp.username'))->subject($request->get('subject'));
