@@ -1,8 +1,8 @@
 <template>
     <div>
         <p class="text-center font-weight-bolder mt-3"
-           :class="`text-${resType}`">
-            {{ resMsg }}
+           :class="`text-${notificationType}`">
+            {{ notificationMsg }}
         </p>
     </div>
 </template>
@@ -11,8 +11,8 @@
 export default {
     name: "Notification",
     props: {
-        resMsg: String,
-        resType: String
+        notificationMsg: String,
+        notificationType: String
     },
 }
 </script>

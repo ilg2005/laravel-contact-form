@@ -85,9 +85,9 @@
                         </v-btn>
 
                         <Notification
-                            v-if="result"
-                            :res-msg="resMsg"
-                            :res-type="resType"
+                            v-if="notification.show"
+                            :notification-msg="notification.msg"
+                            :notification-type="notification.type"
                         />
                     </v-form>
                 </v-col>
@@ -109,9 +109,11 @@ export default {
         return {
             valid: true,
             isSending: false,
-            result: false,
-            resMsg: '',
-            resType: '',
+            notification: {
+                show: false,
+                msg: '',
+                type: ''
+            },
             name: '',
             nameRules: [
                 v => !!v || 'Имя обязательно',
@@ -160,16 +162,16 @@ export default {
                         "Access-Control-Allow-Origin": "*",
                     }
                 }).then((response) => {
-                    this.resMsg = 'Отправлено успешно!';
-                    this.resType = 'success';
-                    this.result = true;
+                    this.notification.msg = 'Отправлено успешно!';
+                    this.notification.type = 'success';
+                    this.notification.show = true;
                     this.$refs.form.reset();
 
                 })
                     .catch((error) => {
                         if (error.response) {
-                            this.resMsg = 'Ошибка! Отправить не удалось';
-                            this.resType = 'danger';
+                            this.notification.msg = 'Ошибка! Отправить не удалось';
+                            this.notification.type = 'danger';
                             console.log(error.response.data);
                             console.log(error.response.status);
                             console.log(error.response.headers);
@@ -177,7 +179,7 @@ export default {
                     })
                     .finally(() => {
                         this.isSending = false;
-                        setTimeout(() => this.result = false, 3000);
+                        setTimeout(() => this.notification.show = false, 3000);
                     })
 
             }
