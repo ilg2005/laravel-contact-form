@@ -7,7 +7,6 @@
             <v-row>
                 <v-col cols="4" class="mx-auto">
                     <v-form method="post"
-                            @submit.prevent="onFormSubmit"
                             ref="form"
                             v-model="valid"
                             lazy-validation
@@ -79,7 +78,7 @@
                             block
                             type="submit"
                             :disabled="!valid || isSending"
-                            @click="onFormSubmit"
+                            @click.prevent="onFormSubmit"
                         >
                             {{ isSending ? 'Отправляется...' : 'Отправить' }}
                         </v-btn>
