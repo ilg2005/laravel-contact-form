@@ -18,7 +18,7 @@
                                 name="name"
                                 id="name"
                                 v-model="name"
-                                :rules="nameRules"
+                                :rules="rules.name"
                                 required
                             />
                         </div>
@@ -31,7 +31,7 @@
                                 name="email"
                                 id="email"
                                 v-model="email"
-                                :rules="emailRules"
+                                :rules="rules.email"
                                 required
                             />
 
@@ -43,7 +43,7 @@
                                 name="phone"
                                 id="phone"
                                 v-model="phone"
-                                :rules="phoneRules"
+                                :rules="rules.phone"
                                 required
                             />
                         </div>
@@ -54,7 +54,7 @@
                                 name="subject"
                                 id="subject"
                                 v-model="subject"
-                                :rules="subjectRules"
+                                :rules="rules.subject"
                                 required
                             />
                             <div class="error">
@@ -68,7 +68,7 @@
                                 id="message"
                                 rows="4"
                                 v-model="message"
-                                :rules="messageRules"
+                                :rules="rules.message"
                                 required
                             ></v-textarea>
                             <div class="error">
@@ -114,30 +114,32 @@ export default {
                 type: ''
             },
             name: '',
-            nameRules: [
-                v => !!v || 'Имя обязательно',
-                v => (v && v.length <= 10) || 'Имя должно быть менее 10 символов',
-            ],
+            rules: {
+                name: [
+                    v => !!v || 'Имя обязательно',
+                    v => (v && v.length <= 10) || 'Имя должно быть менее 10 символов',
+                ],
+                email: [
+                    v => !!v || 'Нужно ввести E-mail',
+                    v => /.+@.+\..+/.test(v) || 'Введите валидный E-mail',
+                ],
+                phone: [
+                    v => !!v || 'Нужно ввести телефон',
+                    v => /\d+/.test(v) || 'Только цифры!',
+                    v => (v && v.length <= 11) || 'Не более 11 цифр',
+                ],
+                subject: [
+                    v => !!v || 'Тема обязательна',
+                ],
+                message: [
+                    v => !!v || 'Сообщение обязательно',
+                    v => (v && v.length <= 500) || 'Не более 500 символов'
+                ],
+            },
             email: '',
-            emailRules: [
-                v => !!v || 'Нужно ввести E-mail',
-                v => /.+@.+\..+/.test(v) || 'Введите валидный E-mail',
-            ],
             phone: '',
-            phoneRules: [
-                v => !!v || 'Нужно ввести телефон',
-                v => /\d+/.test(v) || 'Только цифры!',
-                v => (v && v.length <= 11) || 'Не более 11 цифр',
-            ],
             subject: '',
-            subjectRules: [
-                v => !!v || 'Тема обязательна',
-            ],
             message: '',
-            messageRules: [
-                v => !!v || 'Сообщение обязательно',
-                v => (v && v.length <= 500) || 'Не более 500 символов'
-            ],
         }
     },
     watch: {
@@ -148,7 +150,7 @@ export default {
 
             if (this.$refs.form.validate()) {
                 this.isSending = true;
-                let formData = new FormData();
+                const formData = new FormData();
 
                 formData.append('name', this.name);
                 formData.append('email', this.email);
