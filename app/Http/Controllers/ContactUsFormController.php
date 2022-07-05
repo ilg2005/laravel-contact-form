@@ -4,10 +4,6 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Mail;
 class ContactUsFormController extends Controller {
-    // Create Contact Form
-    public function createForm(Request $request) {
-        return view('contact');
-    }
     // Store Contact Form data
     public function ContactUsForm(Request $request) {
         // Form validation
