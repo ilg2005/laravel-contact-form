@@ -17,7 +17,7 @@
                                 solo
                                 name="name"
                                 id="name"
-                                v-model="name"
+                                v-model="fields.name"
                                 :rules="rules.name"
                                 required
                             />
@@ -30,7 +30,7 @@
                                 type="email"
                                 name="email"
                                 id="email"
-                                v-model="email"
+                                v-model="fields.email"
                                 :rules="rules.email"
                                 required
                             />
@@ -42,7 +42,7 @@
                                 solo
                                 name="phone"
                                 id="phone"
-                                v-model="phone"
+                                v-model="fields.phone"
                                 :rules="rules.phone"
                                 required
                             />
@@ -53,7 +53,7 @@
                                 solo
                                 name="subject"
                                 id="subject"
-                                v-model="subject"
+                                v-model="fields.subject"
                                 :rules="rules.subject"
                                 required
                             />
@@ -67,7 +67,7 @@
                                 name="message"
                                 id="message"
                                 rows="4"
-                                v-model="message"
+                                v-model="fields.message"
                                 :rules="rules.message"
                                 required
                             ></v-textarea>
@@ -108,12 +108,13 @@ export default {
         return {
             valid: true,
             isSending: false,
-            notification: {
-                show: false,
-                msg: '',
-                type: ''
+            fields: {
+                name: '',
+                email: '',
+                phone: '',
+                subject: '',
+                message: '',
             },
-            name: '',
             rules: {
                 name: [
                     v => !!v || 'Имя обязательно',
@@ -136,10 +137,11 @@ export default {
                     v => (v && v.length <= 500) || 'Не более 500 символов'
                 ],
             },
-            email: '',
-            phone: '',
-            subject: '',
-            message: '',
+            notification: {
+                show: false,
+                msg: '',
+                type: ''
+            },
         }
     },
     watch: {
@@ -152,11 +154,11 @@ export default {
                 this.isSending = true;
                 const formData = new FormData();
 
-                formData.append('name', this.name);
-                formData.append('email', this.email);
-                formData.append('phone', this.phone);
-                formData.append('subject', this.subject);
-                formData.append('message', this.message);
+                formData.append('name', this.fields.name);
+                formData.append('email', this.fields.email);
+                formData.append('phone', this.fields.phone);
+                formData.append('subject', this.fields.subject);
+                formData.append('message', this.fields.message);
 
                 axios.post('/', formData, {
                     headers: {
