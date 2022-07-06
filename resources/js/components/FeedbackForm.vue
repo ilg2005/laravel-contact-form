@@ -4,6 +4,15 @@
         <v-container>
             <h1 class="text-center mb-3">{{ msg }}</h1>
 
+            <div v-if="errors">
+                <div v-for="(field, k) in errors" :key="k"
+                     class="error text-center">
+                    <p v-for="(error, j) in field" :key="j">
+                        {{ error.toString().replace(/[]"/, '') }}
+                    </p>
+                </div>
+            </div>
+
             <v-row>
                 <v-col cols="4" class="mx-auto">
                     <v-form method="post"
@@ -98,6 +107,7 @@
 <script>
 
 import Notification from "./Notification";
+
 export default {
     name: 'FeedbackForm',
     components: {Notification},
@@ -107,6 +117,7 @@ export default {
     data() {
         return {
             valid: true,
+            errors: [],
             isSending: false,
             fields: {
                 name: '',
@@ -173,12 +184,13 @@ export default {
                 })
                     .catch((error) => {
                         if (error.response) {
-                            this.notification.msg = 'Ошибка! Отправить не удалось';
+                            this.notification.msg = `Ошибка ${error.response.status}: отправить не удалось!`;
                             this.notification.type = 'danger';
                             this.notification.show = true;
-                            console.log(error.response.data.message);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
+                            if (error.response.status === 422) {
+                                this.errors.push(error.response.data.errors);
+                            }
+                            console.log(error.response.data);
                         }
                     })
                     .finally(() => {
