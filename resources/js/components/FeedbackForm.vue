@@ -2,7 +2,7 @@
     <div>
 
         <v-container>
-            <h1 class="text-center mb-3">{{ msg }}</h1>
+            <h2 class="m-2">{{ msg }}</h2>
 
             <div v-if="errors">
                 <div v-for="(field, k) in errors" :key="k"
@@ -13,29 +13,33 @@
                 </div>
             </div>
 
-            <v-row>
-                <v-col cols="4" class="mx-auto">
-                    <v-form method="post"
-                            ref="form"
-                            v-model="valid"
-                            lazy-validation
-                    >
-                        <div class="form-group">
-                            <label>Имя</label>
+            <v-row class="info white--text"
+                   no-gutters>
+                <v-col class="pa-5"
+                       cols="12"
+                       md="6">
+                    <v-sheet>
+                        <v-form method="post"
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                        >
+
                             <v-text-field
+                                label="Имя"
                                 solo
+                                flat
                                 name="name"
                                 id="name"
                                 v-model.trim="fields.name"
                                 :rules="rules.name"
                                 required
                             />
-                        </div>
 
-                        <div class="form-group">
-                            <label>E-mail</label>
                             <v-text-field
+                                label="E-mail"
                                 solo
+                                flat
                                 type="email"
                                 name="email"
                                 id="email"
@@ -44,35 +48,32 @@
                                 required
                             />
 
-                        </div>
-                        <div class="form-group">
-                            <label>Телефон</label>
                             <v-text-field
+                                label="Телефон"
                                 solo
+                                flat
                                 name="phone"
                                 id="phone"
                                 v-model.trim="fields.phone"
                                 :rules="rules.phone"
                                 required
                             />
-                        </div>
-                        <div class="form-group">
-                            <label>Тема</label>
+
                             <v-text-field
+                                label="Тема"
                                 solo
+                                flat
                                 name="subject"
                                 id="subject"
                                 v-model.trim="fields.subject"
                                 :rules="rules.subject"
                                 required
                             />
-                            <div class="error">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Сообщение</label>
+
                             <v-textarea
+                                label="Сообщение"
                                 solo
+                                flat
                                 name="message"
                                 id="message"
                                 rows="4"
@@ -80,24 +81,23 @@
                                 :rules="rules.message"
                                 required
                             ></v-textarea>
-                            <div class="error">
-                            </div>
-                        </div>
-                        <v-btn
-                            block
-                            type="submit"
-                            :disabled="!valid || isSending"
-                            @click.prevent="onFormSubmit"
-                        >
-                            {{ isSending ? 'Отправляется...' : 'Отправить' }}
-                        </v-btn>
 
-                        <Notification
-                            v-if="notification.show"
-                            :notification-msg="notification.msg"
-                            :notification-type="notification.type"
-                        />
-                    </v-form>
+                            <v-btn
+                                block
+                                type="submit"
+                                :disabled="!valid || isSending"
+                                @click.prevent="onFormSubmit"
+                            >
+                                {{ isSending ? 'Отправляется...' : 'Отправить' }}
+                            </v-btn>
+
+                            <Notification
+                                v-if="notification.show"
+                                :notification-msg="notification.msg"
+                                :notification-type="notification.type"
+                            />
+                        </v-form>
+                    </v-sheet>
                 </v-col>
             </v-row>
         </v-container>

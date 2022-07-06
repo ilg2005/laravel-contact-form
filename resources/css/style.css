@@ -1,20 +1,13 @@
-.container {
-    max-width: 500px;
-    margin: 50px auto;
-    text-align: left;
-    font-family: sans-serif;
-}
 form {
     border: 1px solid #1A33FF;
     background: #ecf5fc;
     padding: 40px 50px 45px;
 }
-.form-control:focus {
-    border-color: #000;
-    box-shadow: none;
-}
-label {
-    font-weight: 600;
+
+.v-label {
+    left: auto;
+    right: auto !important;
+    position: absolute;
 }
 .error {
     color: red;
@@ -22,11 +15,6 @@ label {
     display: block;
     padding: 6px 0;
     font-size: 16px;
-}
-
-.form-control.error {
-    border-color: red;
-    padding: .375rem .75rem;
 }
 
 .v-messages__message {
