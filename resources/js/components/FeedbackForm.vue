@@ -6,7 +6,7 @@
 
             <div v-if="errors">
                 <div v-for="(field, k) in errors" :key="k"
-                     class="error text-center">
+                     class="error">
                     <p v-for="(error, j) in field" :key="j">
                         {{ error.toString().replace(/[]"/, '') }}
                     </p>

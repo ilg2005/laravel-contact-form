@@ -8,6 +8,7 @@ form {
     left: auto;
     right: auto !important;
     position: absolute;
+    font-weight: bold;
 }
 .error {
     color: red;
