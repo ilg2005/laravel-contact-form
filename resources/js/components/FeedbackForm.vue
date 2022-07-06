@@ -179,6 +179,7 @@ export default {
                     this.notification.msg = 'Отправлено успешно!';
                     this.notification.type = 'success';
                     this.notification.show = true;
+                    this.errors.length = 0;
                     this.$refs.form.reset();
 
                 })
