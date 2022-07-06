@@ -14,4 +14,4 @@ use App\Http\Controllers\ContactFormController;
 Route::get('/', function () {
     return view('index');
 });
-Route::post('/', [ContactFormController::class, 'UploadForm']);
+Route::post('/', [ContactFormController::class, 'ProcessContactForm']);
