@@ -17,7 +17,7 @@
                                 solo
                                 name="name"
                                 id="name"
-                                v-model="fields.name"
+                                v-model.trim="fields.name"
                                 :rules="rules.name"
                                 required
                             />
@@ -30,7 +30,7 @@
                                 type="email"
                                 name="email"
                                 id="email"
-                                v-model="fields.email"
+                                v-model.trim="fields.email"
                                 :rules="rules.email"
                                 required
                             />
@@ -42,7 +42,7 @@
                                 solo
                                 name="phone"
                                 id="phone"
-                                v-model="fields.phone"
+                                v-model.trim="fields.phone"
                                 :rules="rules.phone"
                                 required
                             />
@@ -53,7 +53,7 @@
                                 solo
                                 name="subject"
                                 id="subject"
-                                v-model="fields.subject"
+                                v-model.trim="fields.subject"
                                 :rules="rules.subject"
                                 required
                             />
@@ -67,7 +67,7 @@
                                 name="message"
                                 id="message"
                                 rows="4"
-                                v-model="fields.message"
+                                v-model.trim="fields.message"
                                 :rules="rules.message"
                                 required
                             ></v-textarea>
@@ -164,7 +164,7 @@ export default {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                     }
-                }).then((response) => {
+                }).then((_response) => {
                     this.notification.msg = 'Отправлено успешно!';
                     this.notification.type = 'success';
                     this.notification.show = true;
@@ -175,7 +175,8 @@ export default {
                         if (error.response) {
                             this.notification.msg = 'Ошибка! Отправить не удалось';
                             this.notification.type = 'danger';
-                            console.log(error.response.data);
+                            this.notification.show = true;
+                            console.log(error.response.data.message);
                             console.log(error.response.status);
                             console.log(error.response.headers);
                         }
