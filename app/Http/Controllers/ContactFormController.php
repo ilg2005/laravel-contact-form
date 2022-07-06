@@ -3,19 +3,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use Mail;
-class ContactUsFormController extends Controller {
-    // Store Contact Form data
-    public function ContactUsForm(Request $request) {
-        // Form validation
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'subject'=>'required',
-            'message' => 'required'
-        ]);
-        //  Store data in database
+class ContactFormController extends Controller {
+
+    public function UploadForm(Request $request) {
+        // Store Contact Form data
         Contact::create($request->all());
+
         //  Send mail to user cc to admin
         \Mail::send('mail', [
             'name' => $request->get('name'),

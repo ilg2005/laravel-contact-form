@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactUsFormController;
+use App\Http\Controllers\ContactFormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,4 +14,4 @@ use App\Http\Controllers\ContactUsFormController;
 Route::get('/', function () {
     return view('index');
 });
-Route::post('/', [ContactUsFormController::class, 'ContactUsForm']);
+Route::post('/', [ContactFormController::class, 'UploadForm']);
