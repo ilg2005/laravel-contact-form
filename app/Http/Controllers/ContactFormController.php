@@ -15,8 +15,17 @@ class ContactFormController extends Controller
         $this->request = $request;
     }
 
-    public function UploadData($request): void
+    public function StoreData($request): void
     {
+        // Validate form data
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'subject'=>'required',
+            'message' => 'required'
+        ]);
+
         // Store form data
         Contact::create($request->all());
     }
@@ -39,7 +48,7 @@ class ContactFormController extends Controller
 
     public function ProcessContactForm()
     {
-        $this->UploadData($this->request);
+        $this->StoreData($this->request);
         $this->SendMail($this->request);
         return back()->with('success', 'Ваше сообщение отправлено!');
     }
